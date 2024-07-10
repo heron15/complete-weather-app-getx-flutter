@@ -1,0 +1,24 @@
+import 'dart:convert';
+
+import 'package:modern_weather_getx/data/model/weather_wrapper_model.dart';
+import 'package:http/http.dart' as http;
+import 'package:modern_weather_getx/data/model/weather_data_current.dart';
+import 'package:modern_weather_getx/data/model/weather_data_daily.dart';
+import 'package:modern_weather_getx/data/model/weather_data_hourly.dart';
+import 'package:modern_weather_getx/utils/api_url.dart';
+
+class FetchWeatherApi {
+  WeatherWrapperModel? weatherData;
+
+  Future<WeatherWrapperModel> processData(lat, lon) async {
+    var response = await http.get(Uri.parse(ApiUrl.weatherApi(lat, lon)));
+    var jsonString = jsonDecode(response.body);
+    weatherData = WeatherWrapperModel(
+      WeatherDataCurrent.fromJson(jsonString),
+      WeatherDataHourly.fromJson(jsonString),
+      WeatherDataDaily.fromJson(jsonString),
+    );
+
+    return weatherData!;
+  }
+}
