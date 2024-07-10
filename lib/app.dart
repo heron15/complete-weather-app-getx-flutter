@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:modern_weather_getx/utils/app_route.dart';
+import 'package:modern_weather_getx/core/app_route.dart';
+import 'package:modern_weather_getx/core/dependency_injection.dart';
 
 class ModernWeather extends StatelessWidget {
   const ModernWeather({super.key});
@@ -22,6 +23,7 @@ class ModernWeather extends StatelessWidget {
       transitionDuration: const Duration(milliseconds: 200),
       getPages: AppRoute.routes,
       theme: ThemeData(),
+      initialBinding: DependencyInjection(),
     );
   }
 }

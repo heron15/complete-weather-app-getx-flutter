@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:modern_weather_getx/utils/app_color.dart';
-import 'package:modern_weather_getx/utils/app_route.dart';
+import 'package:modern_weather_getx/core/app_route.dart';
 import 'package:modern_weather_getx/utils/asset_paths.dart';
 import 'package:get/get.dart';
 

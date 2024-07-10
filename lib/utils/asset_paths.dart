@@ -11,6 +11,7 @@ class AssetPaths {
   static const String sunrise = "$iconsPaths/sunrise.png";
   static const String sunset = "$iconsPaths/sunset.png";
   static const String uvIndex = "$iconsPaths/uv_index.png";
+  static const String noInternetIcon = "$iconsPaths/no_internet_icon.png";
 
   //lottie path
   static const String day = "$_lottiePath/day.json";

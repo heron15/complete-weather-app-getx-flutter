@@ -24,6 +24,8 @@ Modern weather app manage with GetX state management.
     <img src="screenshots/sc03.png" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
     <img src="screenshots/sc04.png" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
     <img src="screenshots/sc05.jpg" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
+    <img src="screenshots/sc06.jpg" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
+    <img src="screenshots/sc07.jpg" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
 </div>
 
 A few resources to get you started if this is your first Flutter project:
