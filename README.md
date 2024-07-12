@@ -28,9 +28,9 @@ Modern weather app manage with GetX state management.
     <img src="screenshots/sc04.jpg" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
     <img src="screenshots/sc05.jpg" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
     <img src="screenshots/sc06.jpg" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
-    <img src="screenshots/sc07.jpg" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
     <img src="screenshots/sc08.jpg" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
     <img src="screenshots/sc09.jpg" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
+<img src="screenshots/sc07.jpg" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
 
 </div>
 
