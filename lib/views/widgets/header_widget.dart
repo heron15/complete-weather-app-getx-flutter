@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
-import 'package:intl/intl.dart';
 import 'package:modern_weather_getx/controller/global_controller.dart';
 import 'package:modern_weather_getx/utils/app_color.dart';
+import 'package:modern_weather_getx/utils/const_function.dart';
 import 'package:modern_weather_getx/views/screens/search_screen.dart';
 
 class HeaderWidget extends StatefulWidget {
@@ -19,15 +19,17 @@ class HeaderWidget extends StatefulWidget {
 
 class _HeaderWidgetState extends State<HeaderWidget> {
   String city = "";
-  String date = DateFormat("yMMMMd").format(DateTime.now());
+  String date = "";
 
   @override
   void initState() {
     super.initState();
     _updateCity();
+    _updateDate();
     widget.globalController.selectedPlace.listen((place) {
       if (place.isNotEmpty) {
         _updateCity();
+        _updateDate();
       }
     });
   }
@@ -39,6 +41,13 @@ class _HeaderWidgetState extends State<HeaderWidget> {
     );
     setState(() {
       city = updatedCity;
+    });
+  }
+
+  void _updateDate() {
+    setState(() {
+      date = ConstFunction.getFormatTime(
+          widget.globalController.getWeatherData().getCurrentWeather().current.dt ?? 0, "yMMMMd");
     });
   }
 
