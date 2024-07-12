@@ -3,9 +3,13 @@ import 'package:geocoding/geocoding.dart';
 import 'package:intl/intl.dart';
 import 'package:modern_weather_getx/controller/global_controller.dart';
 import 'package:modern_weather_getx/utils/app_color.dart';
+import 'package:modern_weather_getx/views/screens/search_screen.dart';
 
 class HeaderWidget extends StatefulWidget {
-  const HeaderWidget({super.key, required this.globalController});
+  const HeaderWidget({
+    super.key,
+    required this.globalController,
+  });
 
   final GlobalController globalController;
 
@@ -19,11 +23,23 @@ class _HeaderWidgetState extends State<HeaderWidget> {
 
   @override
   void initState() {
-    getAddress(
+    super.initState();
+    _updateCity();
+    widget.globalController.selectedPlace.listen((place) {
+      if (place.isNotEmpty) {
+        _updateCity();
+      }
+    });
+  }
+
+  void _updateCity() async {
+    String updatedCity = await getAddress(
       widget.globalController.getLatitude().value,
       widget.globalController.getLongitude().value,
     );
-    super.initState();
+    setState(() {
+      city = updatedCity;
+    });
   }
 
   @override
@@ -31,14 +47,35 @@ class _HeaderWidgetState extends State<HeaderWidget> {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          city,
-          style: const TextStyle(
-            color: AppColor.white,
-            fontSize: 35,
-            fontWeight: FontWeight.w400,
-            height: 2,
-          ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Flexible(
+              child: Text(
+                city,
+                overflow: TextOverflow.ellipsis,
+                maxLines: 1,
+                style: const TextStyle(
+                  color: AppColor.white,
+                  fontSize: 25,
+                  fontWeight: FontWeight.w400,
+                  height: 2,
+                ),
+              ),
+            ),
+            IconButton(
+              onPressed: () {
+                showSearch(
+                  context: context,
+                  delegate: SearchScreen(),
+                );
+              },
+              icon: const Icon(
+                Icons.search,
+                color: AppColor.white,
+              ),
+            )
+          ],
         ),
         Text(
           date,
@@ -53,11 +90,22 @@ class _HeaderWidgetState extends State<HeaderWidget> {
     );
   }
 
-  getAddress(lat, lon) async {
+  Future<String> getAddress(double lat, double lon) async {
     List<Placemark> placeMark = await placemarkFromCoordinates(lat, lon);
-    Placemark place = placeMark[0];
-    setState(() {
-      city = place.locality ?? "Unknown";
-    });
+    if (placeMark.isNotEmpty) {
+      Placemark place = placeMark[0];
+      String? cityName = place.locality;
+      if (cityName == null || cityName.isEmpty) {
+        cityName = place.subAdministrativeArea;
+      }
+      if (cityName == null || cityName.isEmpty) {
+        cityName = place.administrativeArea;
+      }
+      if (cityName == null || cityName.isEmpty) {
+        cityName = place.country;
+      }
+      return cityName ?? "Unknown";
+    }
+    return "Unknown";
   }
 }

@@ -17,7 +17,7 @@ class CurrentWeatherWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final GlobalController globalController = Get.put(GlobalController());
+    final GlobalController globalController = Get.find<GlobalController>();
     return Column(
       children: [
         const SizedBox(height: 15),
@@ -118,18 +118,19 @@ class CurrentWeatherWidget extends StatelessWidget {
 
   Widget currentWeatherMoreDetailsWidget(GlobalController globalController) {
     //for sunrise & sunset time
-    String timeOfSunrise = ConstFunction.getFormatTime(weatherDataCurrent.current.sunrise!, "jm");
-    String timeOfSunset = ConstFunction.getFormatTime(weatherDataCurrent.current.sunset!, "jm");
+    String timeOfSunrise =
+        ConstFunction.getFormatTime(weatherDataCurrent.current.sunrise ?? 0, "jm");
+    String timeOfSunset = ConstFunction.getFormatTime(weatherDataCurrent.current.sunset ?? 0, "jm");
 
     //for uv index
     String uvIndexSubValue;
     double uvIndexValue = weatherDataCurrent.current.uvIndex!;
 
-    if (uvIndexValue >= 1 && uvIndexValue <3) {
+    if (uvIndexValue >= 1 && uvIndexValue < 3) {
       uvIndexSubValue = "L";
-    } else if (uvIndexValue >= 3 && uvIndexValue <6) {
+    } else if (uvIndexValue >= 3 && uvIndexValue < 6) {
       uvIndexSubValue = "M";
-    } else if (uvIndexValue >= 6 && uvIndexValue <8) {
+    } else if (uvIndexValue >= 6 && uvIndexValue < 8) {
       uvIndexSubValue = "H";
     } else if (uvIndexValue >= 8 && uvIndexValue <= 10) {
       uvIndexSubValue = "VH";

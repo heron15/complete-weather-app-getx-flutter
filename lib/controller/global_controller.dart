@@ -1,13 +1,17 @@
 import 'dart:async';
+import 'dart:convert';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:modern_weather_getx/data/helper/fetch_weather.dart';
 import 'package:modern_weather_getx/data/model/weather_wrapper_model.dart';
+import 'package:modern_weather_getx/utils/api_url.dart';
+import 'package:uuid/uuid.dart';
 
 class GlobalController extends GetxController {
-  final RxBool _isLoading = true.obs;
+  final RxBool _isLoadingWeatherData = true.obs;
   final RxBool _isRefreshing = false.obs;
   final RxDouble _latitude = 0.0.obs;
   final RxDouble _longitude = 0.0.obs;
@@ -15,16 +19,37 @@ class GlobalController extends GetxController {
   final RxInt _currentIndex = 0.obs;
   final RxBool _isThirdRowVisible = false.obs;
   final Connectivity _connectivity = Connectivity();
-  var connectionStatus = 0.obs;
+  final RxInt _connectionStatus = 0.obs;
   late StreamSubscription<ConnectivityResult> _connectivitySubscription;
+  final RxString _sessionToken = "".obs;
+  final RxList<dynamic> _suggestionsList = [].obs;
+  final RxBool _isSearching = false.obs;
+  final RxBool _isLoadingWeatherForPlace = false.obs;
+  final RxString _selectedPlace = ''.obs;
 
-  RxBool checkLoading() => _isLoading;
+  RxBool checkLoading() => _isLoadingWeatherData;
+
   RxBool checkRefreshing() => _isRefreshing;
+
   RxDouble getLatitude() => _latitude;
+
   RxDouble getLongitude() => _longitude;
+
   WeatherWrapperModel getWeatherData() => weatherData.value;
+
   RxInt getIndex() => _currentIndex;
+
   RxBool getIsThirdRowVisible() => _isThirdRowVisible;
+
+  RxInt getConnectionStatus() => _connectionStatus;
+
+  RxList getSuggestionsList() => _suggestionsList;
+
+  RxBool getIsSearching() => _isSearching;
+
+  RxBool get isLoadingWeatherForPlace => _isLoadingWeatherForPlace;
+
+  RxString get selectedPlace => _selectedPlace;
 
   @override
   void onInit() {
@@ -32,6 +57,7 @@ class GlobalController extends GetxController {
     getLocation();
     initConnectivity();
     _connectivitySubscription = _connectivity.onConnectivityChanged.listen(_updateConnectionStatus);
+    _sessionToken.value = const Uuid().v4();
   }
 
   @override
@@ -69,7 +95,7 @@ class GlobalController extends GetxController {
   Future<void> fetchWeatherData(double lat, double lon) async {
     final fetchedWeather = await FetchWeatherApi().processData(lat, lon);
     weatherData.value = fetchedWeather;
-    _isLoading.value = false;
+    _isLoadingWeatherData.value = false;
   }
 
   Future<void> refreshWeatherData() async {
@@ -92,19 +118,19 @@ class GlobalController extends GetxController {
     switch (result) {
       case ConnectivityResult.wifi:
       case ConnectivityResult.mobile:
-        connectionStatus.value = 1;
+        _connectionStatus.value = 1;
         bool hasInternet = await _checkInternetAccess();
         if (!hasInternet) {
-          connectionStatus.value = 0;
-        } else if (_isLoading.value) {
-          await fetchWeatherData(_latitude.value, _longitude.value);
+          _connectionStatus.value = 0;
+        } else if (_isLoadingWeatherData.value) {
+          getLocation();
         }
         break;
       case ConnectivityResult.none:
-        connectionStatus.value = 0;
+        _connectionStatus.value = 0;
         break;
       default:
-        connectionStatus.value = 3;
+        _connectionStatus.value = 3;
         break;
     }
   }
@@ -116,5 +142,48 @@ class GlobalController extends GetxController {
     } catch (_) {
       return false;
     }
+  }
+
+  Future<void> getSuggestions(String input) async {
+    if (input.isEmpty) {
+      _suggestionsList.clear();
+      return;
+    }
+
+    _isSearching.value = true;
+
+    var response = await http.get(Uri.parse(ApiUrl.placeApi(_sessionToken.value, input)));
+
+    if (response.statusCode == 200) {
+      _suggestionsList.value = jsonDecode(response.body.toString())['predictions'];
+    } else {
+      throw Exception('Failed to load suggestions');
+    }
+
+    _isSearching.value = false;
+  }
+
+  void clearSuggestions() {
+    _suggestionsList.clear();
+  }
+
+  Future<void> fetchWeatherDataForPlace(String placeName) async {
+    _isLoadingWeatherForPlace.value = true;
+
+    List<Location> locations = await locationFromAddress(placeName);
+    if (locations.isNotEmpty) {
+      double lat = locations.first.latitude;
+      double lon = locations.first.longitude;
+      await fetchWeatherData(lat, lon);
+
+      _latitude.value = lat;
+      _longitude.value = lon;
+    }
+
+    _isLoadingWeatherForPlace.value = false;
+  }
+
+  void setSelectedPlace(String place) {
+    _selectedPlace.value = place;
   }
 }

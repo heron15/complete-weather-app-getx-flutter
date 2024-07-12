@@ -12,7 +12,10 @@ Modern weather app manage with GetX state management.
         Background animation changes based on current weather.
     </li>
     <li>
-        Using Geolocator for user current location auto detect.
+        Using Geolocator and Geocoding for user current location auto detect and show place name.
+    </li>
+    <li>
+        Using google place api for search place.
     </li>
 </ol>
 
@@ -20,12 +23,15 @@ Modern weather app manage with GetX state management.
 
 <div style="display:flex">
     <img src="screenshots/sc01.jpg" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
-    <img src="screenshots/sc02.png" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
-    <img src="screenshots/sc03.png" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
-    <img src="screenshots/sc04.png" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
+    <img src="screenshots/sc02.jpg" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
+    <img src="screenshots/sc03.jpg" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
+    <img src="screenshots/sc04.jpg" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
     <img src="screenshots/sc05.jpg" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
     <img src="screenshots/sc06.jpg" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
     <img src="screenshots/sc07.jpg" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
+    <img src="screenshots/sc08.jpg" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
+    <img src="screenshots/sc09.jpg" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
+
 </div>
 
 A few resources to get you started if this is your first Flutter project:

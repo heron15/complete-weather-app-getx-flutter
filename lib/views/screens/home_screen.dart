@@ -22,13 +22,24 @@ class _HomeScreenState extends State<HomeScreen> {
   final GlobalController globalController = Get.find<GlobalController>();
 
   @override
+  void initState() {
+    super.initState();
+    globalController.selectedPlace.listen((place) async {
+      if (place.isNotEmpty) {
+        await globalController.fetchWeatherDataForPlace(place);
+      }
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColor.darkBg,
       body: Obx(
-        () => globalController.connectionStatus.value == 0
+        () => globalController.getConnectionStatus().value == 0
             ? const NoInternetConnectionWidget()
-            : globalController.checkLoading().isTrue
+            : globalController.checkLoading().isTrue ||
+                    globalController.isLoadingWeatherForPlace.isTrue
                 ? const CenterCircularProgress()
                 : homeAppBackgroundWidget(),
       ),
@@ -58,7 +69,6 @@ class _HomeScreenState extends State<HomeScreen> {
         physics: const BouncingScrollPhysics(),
         scrollDirection: Axis.vertical,
         children: [
-          const SizedBox(height: 10),
           HeaderWidget(
             globalController: globalController,
           ),
