@@ -36,7 +36,7 @@ class AppBackgroundWidget extends StatelessWidget {
     if (assetPath == AssetPaths.day || assetPath == AssetPaths.snow) {
       bgOpacity = 0.70;
     } else {
-      bgOpacity = 0.50;
+      bgOpacity = 0.60;
     }
     return Stack(
       children: [

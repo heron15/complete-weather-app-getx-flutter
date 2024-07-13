@@ -57,7 +57,7 @@ class _HourlyWeatherWidgetState extends State<HourlyWeatherWidget> {
             : widget.weatherDataHourly.hourly.length,
         itemBuilder: (context, index) {
           return Obx(
-            () => GestureDetector(
+                () => GestureDetector(
               onTap: () {
                 cardIndex.value = index;
               },
@@ -74,11 +74,11 @@ class _HourlyWeatherWidgetState extends State<HourlyWeatherWidget> {
                   ],
                   gradient: cardIndex.value == index
                       ? const LinearGradient(
-                          colors: [
-                            AppColor.firstGradientColor,
-                            AppColor.secondGradientColor,
-                          ],
-                        )
+                    colors: [
+                      AppColor.firstGradientColor,
+                      AppColor.secondGradientColor,
+                    ],
+                  )
                       : null,
                 ),
                 child: HourlyListItemDetails(
