@@ -45,7 +45,6 @@ dependencies:
   rename_app: ^1.6.1
   connectivity_plus: ^5.0.2
   uuid: ^4.4.0
-  fl_chart: ^0.68.0
 
 dev_dependencies:
   flutter_test:
