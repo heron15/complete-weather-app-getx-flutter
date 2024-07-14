@@ -22,17 +22,20 @@ class AppBackgroundWidget extends StatelessWidget {
         iconName == "04d" ||
         iconName == "50d") {
       assetPath = AssetPaths.day;
-    } else if (iconName == "01n" || iconName == "02n" || iconName == "50n") {
+    } else if (iconName == "01n" ||
+        iconName == "02n" ||
+        iconName == "50n" ||
+        iconName == "03n" ||
+        iconName == "04n") {
       assetPath = AssetPaths.night;
-    } else if (iconName == "03n" || iconName == "04n") {
-      assetPath = AssetPaths.nightClouds;
     } else if (iconName == "13d" || iconName == "13n") {
       assetPath = AssetPaths.snow;
-    } else if (iconName == "09d" || iconName == "09n" || iconName == "10d" || iconName == "10n") {
+    } else if (iconName == "09d" || iconName == "09n") {
       assetPath = AssetPaths.lightRain;
     } else {
       assetPath = AssetPaths.heavyRain;
     }
+
     if (assetPath == AssetPaths.day || assetPath == AssetPaths.snow) {
       bgOpacity = 0.70;
     } else {

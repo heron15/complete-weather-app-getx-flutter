@@ -18,7 +18,6 @@ class AssetPaths {
   static const String heavyRain = "$_lottiePath/heavy_rain.json";
   static const String lightRain = "$_lottiePath/light_rain.json";
   static const String night = "$_lottiePath/night.json";
-  static const String nightClouds = "$_lottiePath/night_clouds.json";
   static const String snow = "$_lottiePath/snow.json";
 
   static const String weather = "$_lottiePath/weather.json";
