@@ -2,7 +2,7 @@
 
 Modern weather app manage with GetX state management.
 
-# Features
+# The technology I used to make this App.
 
 <ol>
     <li>
@@ -12,10 +12,16 @@ Modern weather app manage with GetX state management.
         Background animation changes based on current weather.
     </li>
     <li>
-        Using Geolocator and Geocoding for user current location auto detect and show place name.
+        Using GeoLocator and GeoCoding for user current location auto detect and show place name.
     </li>
     <li>
-        Using google place api for search place.
+        Used google place api for search places.
+    </li>
+    <li>
+        Used Open Weather API for location weather data.
+    </li>
+    <li>
+        `fl_chart` library is used for graph data visualization.
     </li>
 </ol>
 
