@@ -22,12 +22,23 @@ class _SplashScreenState extends State<SplashScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColor.darkBg,
-      body: Center(
-        child: Lottie.asset(
-          AssetPaths.weather,
-          width: 120,
-          height: 120,
+      body: Container(
+        decoration: const BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              AppColor.darkSecondary,
+              AppColor.darkBg,
+            ], // Replace with your desired colors
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: Center(
+          child: Lottie.asset(
+            AssetPaths.weather,
+            width: 120,
+            height: 120,
+          ),
         ),
       ),
     );

@@ -12,6 +12,4 @@ class AppColor {
 
   static const Color darkBg = Color(0xff131a25);
   static const Color darkSecondary = Color(0xff1c2b42);
-  static const simmerBgColor = Color(0xff1c2b42);
-  static const simmerItemColor = Color(0xff3b4f75);
 }

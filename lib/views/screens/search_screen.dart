@@ -38,13 +38,13 @@ class SearchScreen extends SearchDelegate {
   @override
   Widget buildResults(BuildContext context) {
     globalController.getSuggestions(query);
-    return searchListWidget();
+    return searchListWidget(context);
   }
 
   @override
   Widget buildSuggestions(BuildContext context) {
     globalController.getSuggestions(query);
-    return searchListWidget();
+    return searchListWidget(context);
   }
 
   @override
@@ -67,7 +67,7 @@ class SearchScreen extends SearchDelegate {
     );
   }
 
-  Widget searchListWidget() {
+  Widget searchListWidget(BuildContext context) {
     return Obx(
       () {
         if (query.isEmpty) {
@@ -82,28 +82,27 @@ class SearchScreen extends SearchDelegate {
           );
         }
 
-        if (globalController.getSuggestionsList().isEmpty) {
-          return const Center(
-            child: Text(
-              'No results found',
-              style: TextStyle(color: AppColor.white),
-            ),
-          );
+        List<Widget> listItems = [currentLocationButton(context)];
+
+        if (globalController.getSuggestionsList().isNotEmpty) {
+          listItems.addAll(globalController.getSuggestionsList().map((suggestion) {
+            String placeName = suggestion['description'];
+            return SearchListItem(
+              placeName: placeName,
+              onTap: () async {
+                globalController.setSelectedPlace(placeName);
+                close(context, placeName);
+              },
+            );
+          }).toList());
         }
 
         return Padding(
           padding: const EdgeInsets.all(10.0),
           child: ListView.separated(
-            itemCount: globalController.getSuggestionsList().length,
+            itemCount: listItems.length,
             itemBuilder: (context, index) {
-              String placeName = globalController.getSuggestionsList()[index]['description'];
-              return SearchListItem(
-                placeName: placeName,
-                onTap: () async {
-                  globalController.setSelectedPlace(placeName);
-                  close(context, placeName);
-                },
-              );
+              return listItems[index];
             },
             separatorBuilder: (BuildContext context, int index) {
               return Divider(
@@ -114,6 +113,45 @@ class SearchScreen extends SearchDelegate {
           ),
         );
       },
+    );
+  }
+
+  Widget currentLocationButton(BuildContext context) {
+    return Container(
+      alignment: Alignment.center,
+      height: 80,
+      child: ElevatedButton(
+        onPressed: () {
+          close(context, "current_location_call");
+        },
+        style: ElevatedButton.styleFrom(
+          backgroundColor: AppColor.darkBg,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+            side: const BorderSide(
+              color: AppColor.dividerLine,
+              width: 1,
+            ),
+          ),
+        ),
+        child: const Row(
+          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.location_on_outlined,
+              color: AppColor.white,
+            ),
+            SizedBox(width: 8),
+            Text(
+              "Use My Current Location",
+              style: TextStyle(
+                color: AppColor.white,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -3,15 +3,15 @@ import 'package:geocoding/geocoding.dart';
 import 'package:intl/intl.dart';
 import 'package:modern_weather_getx/controller/global_controller.dart';
 import 'package:modern_weather_getx/utils/app_color.dart';
-import 'package:modern_weather_getx/views/screens/search_screen.dart';
 
 class HeaderWidget extends StatefulWidget {
   const HeaderWidget({
     super.key,
-    required this.globalController,
+    required this.globalController, required this.onTap,
   });
 
   final GlobalController globalController;
+  final VoidCallback onTap;
 
   @override
   State<HeaderWidget> createState() => _HeaderWidgetState();
@@ -64,12 +64,7 @@ class _HeaderWidgetState extends State<HeaderWidget> {
               ),
             ),
             IconButton(
-              onPressed: () {
-                showSearch(
-                  context: context,
-                  delegate: SearchScreen(),
-                );
-              },
+              onPressed: widget.onTap,
               icon: const Icon(
                 Icons.search,
                 color: AppColor.white,

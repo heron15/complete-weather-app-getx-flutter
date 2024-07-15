@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:modern_weather_getx/controller/global_controller.dart';
 import 'package:modern_weather_getx/utils/app_color.dart';
+import 'package:modern_weather_getx/views/screens/search_screen.dart';
 import 'package:modern_weather_getx/views/widgets/app_background_widget.dart';
 import 'package:modern_weather_getx/views/widgets/center_circular_progress.dart';
 import 'package:modern_weather_getx/views/widgets/comfort_level.dart';
@@ -71,6 +72,9 @@ class _HomeScreenState extends State<HomeScreen> {
         children: [
           HeaderWidget(
             globalController: globalController,
+            onTap: () {
+              _searchIconOnTap();
+            },
           ),
           CurrentWeatherWidget(
             weatherDataCurrent: globalController.getWeatherData().getCurrentWeather(),
@@ -87,5 +91,16 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
       ),
     );
+  }
+
+  _searchIconOnTap() async {
+    final result = await showSearch(
+      context: context,
+      delegate: SearchScreen(),
+    );
+
+    if (result == "current_location_call") {
+      await globalController.fetchWeatherForCurrentLocation();
+    }
   }
 }

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
@@ -86,6 +87,7 @@ class GlobalController extends GetxController {
     }
 
     final position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+    debugPrint("$position");
     _latitude.value = position.latitude;
     _longitude.value = position.longitude;
 
@@ -185,5 +187,19 @@ class GlobalController extends GetxController {
 
   void setSelectedPlace(String place) {
     _selectedPlace.value = place;
+  }
+
+  Future<void> fetchWeatherForCurrentLocation() async {
+    _isLoadingWeatherData.value = true;
+    try {
+      final position = await Geolocator.getCurrentPosition(desiredAccuracy: LocationAccuracy.high);
+      _latitude.value = position.latitude;
+      _longitude.value = position.longitude;
+      await fetchWeatherData(position.latitude, position.longitude);
+    } catch (e) {
+      // Handle error
+    } finally {
+      _isLoadingWeatherData.value = false;
+    }
   }
 }
