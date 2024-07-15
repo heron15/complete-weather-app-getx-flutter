@@ -1,38 +1,46 @@
 # Modern Weather App.
 
-I developed this App mainly using the Java programming language. This app is the "MP Election app of Bangladesh". After entering the app, scan your National Digital ID card, select the area, and submit, the candidates in that area will automatically appear. Here, when the ID card is scanned and submitted, the ID card will be verified whether the user has voted before and whether his ID card is valid. Then the user can easily select the candidate of his choice and vote. Here is another option "Hide Me", if the user clicks on it and votes then no information will go to the admin. User's face verification will be done while voting.
+Modern weather app manage with GetX state management.
 
-An admin app has been created to control this voting application, within which the admin can add, edit, and delete districts and areas and add, edit, and delete candidates in that area. Admin app has another section View Results. Here admin can see how many votes the candidates got in that area by selecting the district and area. And the admin can easily see the details of the users who have voted for those candidates.
-
-# The technology I used to develope this App.
+# The technology I used to make this App.
 
 <ol>
     <li>
-        I used Google Firebase cloud text recognition service to convert text from an ID card. Collected Bengali and English text from NID card images through this firebase ML text recognition.
+        Using GetX state management.
     </li>
     <li>
-        I used the machine learning OpenCV library to process the image and clear it. So that the texts can be easily detected.
+        Background animation changes based on current weather.
     </li>
     <li>
-        I have used Google Firebase FireStore and Real-Time Database to save user data.
+        Using GeoLocator and GeoCoding for user current location auto detect and show place name.
     </li>
     <li>
-        I used the "fotoapparat" camera library to capture the image.
+        Used google place api for search places.
     </li>
     <li>
-        Used Glide library to load images and SSP and SDP libraries to make the app responsive.
+        Used Open Weather API for location weather data.
     </li>
     <li>
-        Also I used the Volley library, to receive data from API.
+        `fl_chart` library is used for graph data visualization.
     </li>
 </ol>
 
 ## Screenshots
 
 <div style="display:flex">
-    <img src="https://media.licdn.com/dms/image/D5622AQFyzNzpCJ-2dw/feedshare-shrink_800/0/1701354011636?e=1723680000&v=beta&t=Lp0Hw-zmKbc7xVY7YIaAevHOMxBP7Lguf9r5hsOT9d8" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
-    
+    <img src="screenshots/sc01.jpg" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
+    <img src="screenshots/sc02.jpg" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
+    <img src="screenshots/sc03.jpg" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
+    <img src="screenshots/sc04.jpg" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
+    <img src="screenshots/sc05.jpg" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
+    <img src="screenshots/sc06.jpg" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
+    <img src="screenshots/sc07.jpg" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
+    <img src="screenshots/sc08.jpg" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
+    <img src="screenshots/sc09.jpg" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
+    <img src="screenshots/gif.gif" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
 </div>
+
+A few resources to get you started if this is your first Flutter project:
 
 - [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
 - [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
