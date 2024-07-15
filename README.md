@@ -40,6 +40,7 @@ Modern weather app manage with GetX state management.
     <img src="screenshots/gif.gif" alt="Home Screen" width="150" height="300" style="margin-right: 30px;">
 </div>
 
+
 A few resources to get you started if this is your first Flutter project:
 
 - [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
